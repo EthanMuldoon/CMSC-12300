@@ -1,0 +1,5 @@
+Ethan Muldoon
+CMSC 12300
+Project Proposal
+
+I want to use the ENSEMBL annotated genome data from AWS.  I would like to be able to calculate an evolutionary tree by comparing the genomes of different species, and group families of animals together.  I am also interested in seeing how individual genes change between different species.  
