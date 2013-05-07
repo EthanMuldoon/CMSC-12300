@@ -1,0 +1,15 @@
+The data I used is availabe at: 
+ ftp://ftp.ensembl.org/pub/release-71/fasta/
+For each species you want to compare, go to the species/cdna folder and download the file that ends in cdna.all.fa.gz
+you will have to uncompress these files before you can use them, and they should get put into a folder like:
+ lustre/scratch109/ensembl/tm6/fasta_dumping_e71/fasta/   (1)
+This folder will contain a subfolder for each species.  
+
+Once you have downloaded all the data files you want to analyze, run the program with the command:
+ run(data, "filter.txt")
+where 'data' is the folder labeled as (1) above.  
+This should eventually draw an evolutionary tree with each species in the data file listed. The program will also return a matrix of the number of differences between each pair of species. 
+
+running the program on the data files for echinops telfairi (lesser hedgehog tenrec), gorilla gorilla (gorilla), homo sapiens (humans), macaca mulatta (rhesus macaque), pan troglodytes (chimps), and pongo abelii (sumatran orangutan), I generated the genetic tree saved as 'test tree.png'
+
+the output of the program might not necesarilly match a correct genetic tree.  For example, 'test tree.png' shows the orangutans and gorillas branching off in the wrong order (gorillas should be closer to humans).  This is probably because for now I am only comparing one gene, because it is incredibly slow otherwise.  
