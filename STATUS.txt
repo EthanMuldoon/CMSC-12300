@@ -1,0 +1,3 @@
+The code I wrote for the prototype was very slow, so I have been working on re-writing it in c++.  I have redone most of the code for comparing genes, but I haven't finished writing the code to read in the data from the files, so it doesn't work yet.  I also modified my text comparison algorithm so that it starts searching from both ends of the strings.  This should make the algorithm up to twice as fast when comparing strings with many differences.  The c++ code I wrote is in a file called project.cpp.
+
+I am currently planning to have my c++ program do inital processing of the data and output a big file with the results of comparisons between genes.  I will then use python to analyze these results and produce legible results and graphs.  
