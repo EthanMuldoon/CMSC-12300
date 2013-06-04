@@ -1,15 +1,12 @@
-The data I used is availabe at: 
- ftp://ftp.ensembl.org/pub/release-71/fasta/
-For each species you want to compare, go to the species/cdna folder and download the file that ends in cdna.all.fa.gz
-you will have to uncompress these files before you can use them, and they should get put into a folder like:
- lustre/scratch109/ensembl/tm6/fasta_dumping_e71/fasta/   (1)
-This folder will contain a subfolder for each species.  
+The data I used is available as one of the public Amazon EBS volumes, called ENSEMBL annotated human genome data (FASTA release 68).  Unlike the prototype, the final version does not require the data to be uncompressed first.  
 
-Once you have downloaded all the data files you want to analyze, run the program with the command:
- run(data, "filter.txt")
-where 'data' is the folder labeled as (1) above.  
-This should eventually draw an evolutionary tree with each species in the data file listed. The program will also return a matrix of the number of differences between each pair of species. 
+The compare.cpp file should be compiled and run on an Amazon EC2 cc2.8xlarge node.  It takes three parameters:
+1. The path to the data folder.
+2. A text file containing a list of pairs of species to be compared.  There should be one pair on each line, separated by a comma.  
+3. A maximum number of genes from each species to compare.  A good value seems to be around 1000.
 
-running the program on the data files for echinops telfairi (lesser hedgehog tenrec), gorilla gorilla (gorilla), homo sapiens (humans), macaca mulatta (rhesus macaque), pan troglodytes (chimps), and pongo abelii (sumatran orangutan), I generated the genetic tree saved as 'test tree.png'
+To run on multiple machines simultaneously, you must manually start the program on each instance.  However, the utilities.py file contains a function 'generateJobs', which takes as input a list of species, the data folder, a number of machines, and a value for the maximum number of genes, and outputs a folder containing input files for the different machines.  
 
-the output of the program might not necesarilly match a correct genetic tree.  For example, 'test tree.png' shows the orangutans and gorillas branching off in the wrong order (gorillas should be closer to humans).  This is probably because for now I am only comparing one gene, because it is incredibly slow otherwise.  
+The utilities.py file also contains a function that will pull the cDNA data out of the dataset and move it into a new folder.  I used this to make my own snapshot so I didn't have to make a 210 GB volume every time I wanted to access the data.  This function just takes the source folder path and destination folder path as arguments.
+
+The analyze.py file contains a function called run.  The input to this function should be the path to the folder you get after compiling and running compare.cpp and consolidating all the output folders.  This function will currently just generate a genetic tree diagram from the data.  
